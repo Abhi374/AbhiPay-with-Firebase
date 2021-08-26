@@ -1,6 +1,66 @@
-import React from "react";
+import React, {useState} from "react";
 
 const Contact = () => {
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    phone:"",
+    email:"",
+    address:"",
+    message:"",
+
+  });
+ let name , value;
+  const postUserData = (event) =>{
+    name = event.target.name;
+    value = event.target.value;
+
+    setUserData({...userData, [name]:value});
+  };
+
+  // connect with firebase
+  const submitData = async(event) =>{
+      event.preventDefault();
+      const  {firstName,lastName,phone,email, address,message} = userData;
+
+    if(firstName && lastName && phone,email &&  address && message){
+        
+      
+    const res =  fetch(
+      'https://abhipaywebsite-default-rtdb.firebaseio.com/userDataRecords.json',
+      {
+      method:"POST",
+      headers:{
+        "Content-Type" : "application/json",
+      },
+      body:JSON.stringify({
+        firstName,
+        lastName,
+        phone,
+        email,
+        address,
+        message,
+      })
+      }
+      );
+   if(res){
+     setUserData({
+      firstName: "",
+      lastName: "",
+      phone:"",
+      email:"",
+      address:"",
+      message:"",
+     })
+     alert("Data Stored Successfully!!");
+   }else{
+     alert("Please fill the data");
+   }
+  }else{
+    alert("Please fill the data properly!!");
+  }
+
+  };
   return (
     <>
       <section className="contactus-section">
@@ -32,19 +92,23 @@ const Contact = () => {
                       <div className="col-12 col-lg-6 contact-input-feild">
                         <input
                           type="text"
-                          name=""
+                          name="firstName"
                           id=""
                           className="form-control"
                           placeholder="First Name"
+                          value={userData.firstName}
+                          onChange={postUserData}
                         />
                       </div>
                       <div className="col-12 col-lg-6 contact-input-feild">
                         <input
                           type="text"
-                          name=""
+                          name="lastName"
                           id=""
                           className="form-control"
                           placeholder="Last Name"
+                          value={userData.lastName}
+                          onChange={postUserData}
                         />
                       </div>
                     </div>
@@ -52,19 +116,23 @@ const Contact = () => {
                       <div className="col-12 col-lg-6 contact-input-feild">
                         <input
                           type="text"
-                          name=""
+                          name="phone"
                           id=""
                           className="form-control"
                           placeholder="Phone Number "
+                          value={userData.phone}
+                          onChange={postUserData}
                         />
                       </div>
                       <div className="col-12 col-lg-6 contact-input-feild">
                         <input
                           type="text"
-                          name=""
+                          name="email"
                           id=""
                           className="form-control"
                           placeholder="Email ID"
+                          value={userData.email}
+                          onChange={postUserData}
                         />
                       </div>
                     </div>
@@ -72,10 +140,12 @@ const Contact = () => {
                       <div className="col-12 contact-input-feild">
                         <input
                           type="text"
-                          name=""
+                          name="address"
                           id=""
                           className="form-control"
                           placeholder="Add Address"
+                          value={userData.address}
+                          onChange={postUserData}
                         />
                       </div>
                     </div>
@@ -84,10 +154,12 @@ const Contact = () => {
                       <div className="col-12 ">
                         <input
                           type="text"
-                          name=""
+                          name="message"
                           id=""
                           className="form-control"
                           placeholder="Enter Your Message"
+                          value={userData.message}
+                          onChange={postUserData}
                         />
                       </div>
                     </div>
@@ -106,7 +178,8 @@ const Contact = () => {
                       </label>
                     </div>
 
-                    <button type="submit" className="btn btn-style w-100">
+                    <button type="submit" className="btn btn-style w-100" onClick=
+                    {submitData}>
                       Submit
                     </button>
                   </form>

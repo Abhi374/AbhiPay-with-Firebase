@@ -6,7 +6,8 @@ const Header = () => {
       <header>
         <section className="container main-hero-container">
           <div className="row">
-            <div className="col-12 col-lg-6 header-left-side d-flex justify-content-center flex-column align-items-start ">
+            <div className="col-12 col-lg-6 header-left-side d-flex justify-content-center flex-column align-items-start 
+            order-lg-first order-last">
               <h1 className="display-2 abhi">
                 Online Payment Made <br /> Easy For You.
               </h1>
@@ -27,7 +28,8 @@ const Header = () => {
               </div>
             </div>
             {/*  --------------- main header right side--------------  */}
-            <div className="col-12 col-lg-6 header-right-side d-flex justify-content-center align-items-center main-herosection-images">
+            <div className="col-12 col-lg-6 header-right-side d-flex justify-content-center align-items-center main-herosection-images
+            order-md-first order-sm-first">
               <img
                 src="./images/hero1.jpg"
                 alt="heroimg"
